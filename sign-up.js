@@ -1,64 +1,74 @@
-// const elFormRegist = document.getElementById('form-regist')
-// elFormRegist.addEventListener('submit', function (event) {
-//  event.preventDefault()
-//  const formData = new FormData(elFormRegist)
-//  const values = Object.fromEntries(formData)
-//  console.log(values)
-//  //First Name, Last Name, Phone Number, Email, Password, tnc
-//  const FirstName = values.FirstName
-//  const LastName = values.LastName
-//  const PhoneNumber = values.PhoneNumber
-//  const Email = values.Email
-//  const Password = values.Password
-//  const tnc = values.tnc
 
-//  // Check condition
-//  if (!FirstName) {
-//     alert (`First Name must be filled !`) 
-//  } else if (!LastName) {
-//     alert (`Last Name must be filled !`)
-//  } else if (!PhoneNumber) {
-//     alert (`Phone Number must be filled !`)
-//  } else if (!Email) {
-//     alert (`Email must be filled !`)
-//  } else if (!Password) {
-//     alert (`Password must be filled !`)
-//  } else if (!tnc) {
-//     alert (`Terms and Condition must be checked !`)
-//  } else {
-//     console.log (values)
-//     const UserData = values
-//     const UserDataString = JSON.stringify(UserData)
-//     localStorage.setItem('user', UserDataString)
-//     onGreeting(FirstName)
-//  }
-// })
+  const url = 'https://6361da91fabb6460d8ffede3.mockapi.io/users'
+  // const inputFirstName = document.getElementById('form-FirstName');
+  // const FirstNameLength = inputFirstName.value.length;
+  // const FirstName = inputFirstName.value
 
-const url = 'https://6352da05d0bca53a8eb68303.mockapi.io/users'
-const elForm = document.getElementById('form-regist')
+  // // console.log(username)
+  
+  // const inputLastName = document.getElementById('form-LastName');
+  // const LastNameLength = inputLastName.value.length;
+  // const LastName = inputLastName.value
+
+  // const inputPhoneNumber = document.getElementById('form-PhoneNumber')
+  // const PhoneNumberLength = inputPhoneNumber.value.length;
+  // const PhoneNumber = inputPhoneNumber.value
+
+  // const inputEmail = document.getElementById('form-email');
+  // const emailLength = inputEmail.value.length;
+  // const email = inputEmail.value
+
+  // const inputPassword = document.getElementById('form-password')
+  // const passwordLength = inputPassword.value.length;
+
+  // if (!FirstNameLength) {
+  //   alert('First Name harus diisi');
+  // } else if (LastNameLength === 0) {
+  //   alert('Last Name harus diisi');
+  // } else if (PhoneNumberLength === 0) {
+  //   alert('Phone Number Harus Diisi');
+  // } else if (emailLength === 0) {
+  //   alert('Email harus diisi');
+  // } else if (passwordLength === 0) {
+  //   alert('password harus diisi');
+  // } else {
+
+  // // const greetings = document.querySelector
+  // //   ("#greetings");
+  // //   console.log(greetings);
+  // //   greetings.innerText = "Hello, " + username;
+
+  //   let inputFirstName = ''
+  //   localStorage.setItem('FirstName', FirstName)
+
+  // }
+  const elForm = document.getElementById('form-regist')
     elForm.addEventListener('submit', function (event) {
       event.preventDefault()
       const formData = new FormData(elForm)
       const values = Object.fromEntries(formData)
-      // console.log(values)
-      const { FirstName, LastName, PhoneNumber, Email, Password } = values
-      if (!FirstName) {
+       console.log(values)
+      const { firstName, lastName, phoneNumber, email, password, tnc } = values
+      if (!firstName) {
         alert(`First Name can't be empty !`)
-      } else if (!LastName) {
+      } else if (!lastName) {
         alert(`Last Name can't be empty !`)
-      } else if (!PhoneNumber) {
+      } else if (!phoneNumber) {
         alert(`Phone Number can't be empty !`)
-      } else if (!Email) {
+      } else if (!email) {
         alert(`Email can't be empty !`)
-      } else if (!Password) {
+      } else if (!password) {
         alert(`Password can't be empty !`)
+      } else if  (!tnc) {
+        alert('Please check the terms and condition box !')
       } else {
         const userLogin = {
-          FirstName,
-          LastName,
-          PhoneNumber,
-          Email,
-          Password
+          firstName,
+          lastName,
+          phoneNumber,
+          email,
+          password,
+          tnc
         }
         // const userLoginStr = JSON.stringify(userLogin)
         // localStorage.setItem('user', userLoginStr)
@@ -67,7 +77,7 @@ const elForm = document.getElementById('form-regist')
           .then(data => {
             // console.log(data)
             if (data) {
-              const findUser = data.find(element => element.FirstName === FirstName || element.email === email)
+              const findUser = data.find(element => element.email === email)
               // console.log(findUser, '<<< find user')
               if (findUser) {
                 // jika sudah pernah register
@@ -86,7 +96,8 @@ const elForm = document.getElementById('form-regist')
             // ketika berhasil di saved data ke API
             const dataUserString = JSON.stringify(value)
             localStorage.setItem('user', dataUserString)
-            onGreeting(FirstName)
+            location.href = "https://www.google.com";
+            //onGreeting(username)
           })
           .catch(error => {
             const message = error.message || 'Failed create user'
@@ -132,23 +143,23 @@ const elForm = document.getElementById('form-regist')
       })
     }
     
-    function onGreeting (FirstName = '') {
-      const elGreeting = document.getElementById('greeting')
-      const elBtnLogout = document.getElementById('btn-logout')
-      if (FirstName) {
-        elGreeting.innerHTML = 'Hello ' + FirstName
-        elBtnLogout.classList.remove('d-none')
-        elForm.classList.add('d-none')
-      } else {
-        elGreeting.innerHTML = ''
-        elBtnLogout.classList.add('d-none')
-        elForm.classList.remove('d-none')
-      }
-    }
+    // function onGreeting (username = '') {
+    //   const elGreeting = document.getElementById('greeting')
+    //   const elBtnLogout = document.getElementById('btn-logout')
+    //   if (username) {
+    //     elGreeting.innerHTML = 'Hello ' + username
+    //     elBtnLogout.classList.remove('d-none')
+    //     elForm.classList.add('d-none')
+    //   } else {
+    //     elGreeting.innerHTML = ''
+    //     elBtnLogout.classList.add('d-none')
+    //     elForm.classList.remove('d-none')
+    //   }
+    // }
 
     function logout () {
       localStorage.removeItem('user')
-      onGreeting()
+      //onGreeting()
     }
 
     function checkUserLogin () {
@@ -158,8 +169,10 @@ const elForm = document.getElementById('form-regist')
         const userLogin = JSON.parse(getUser)
         // console.log(userLogin)
         const username = userLogin.username
-        onGreeting(username)
+        //onGreeting(username)
       }
     }
 
     checkUserLogin()
+
+
